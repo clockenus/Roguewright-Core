@@ -1,0 +1,32 @@
+{
+  "schemaVersion": 1,
+  "id": "roguewright",
+  "version": "${version}",
+  "name": "Roguewright Core",
+  "description": "A core mod for Helmsman modpack.",
+  "authors": [],
+  "contact": {},
+  "license": "MIT",
+  "icon": "assets/roguewright/icon.png",
+  "environment": "*",
+  "entrypoints": {
+    "client": [
+      "com.clocken.roguewright.client.RoguewrightClient"
+    ],
+    "main": [
+      "com.clocken.roguewright.Roguewright"
+    ]
+  },
+  "mixins": [
+    "roguewright.mixins.json",
+    {
+      "config": "roguewright.client.mixins.json",
+      "environment": "client"
+    }
+  ],
+  "depends": {
+    "fabricloader": ">=${loader_version}",
+    "fabric-api": "*",
+    "minecraft": "${minecraft_version}"
+  }
+}
