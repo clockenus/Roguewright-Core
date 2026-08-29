@@ -4,6 +4,7 @@
   "package": "com.clocken.roguewright.mixin",
   "compatibilityLevel": "JAVA_21",
   "mixins": [
+    "GameModeListMixin"
   ],
   "injectors": {
     "defaultRequire": 1

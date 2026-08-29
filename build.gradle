@@ -42,7 +42,10 @@ dependencies {
     modImplementation "net.fabricmc:fabric-loader:${project.loader_version}"
     modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
 
-    
+    modImplementation "maven.modrinth:blockade:RVMIaySI"
+
+    modImplementation "maven.modrinth:starter-kit:1.21.1-8.1-fabric+forge+neo"
+    modImplementation "maven.modrinth:collective:1.21.1-8.39-fabric+forge+neo"
 }
 
 processResources {

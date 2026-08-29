@@ -1,7 +1,7 @@
 {
   "required": true,
   "minVersion": "0.8",
-  "package": "com.clocken.roguewright.mixin.client",
+  "package": "com.clocken.roguewright.client.mixin",
   "compatibilityLevel": "JAVA_21",
   "client": [
   ],
