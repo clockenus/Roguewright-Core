@@ -4,8 +4,8 @@
   "package": "com.clocken.roguewright.client.mixin",
   "compatibilityLevel": "JAVA_21",
   "client": [
-    "ExperienceOrbEntityRendererMixin",
-    "InGameHudMixin"
+    "DrawHudContextMixin",
+    "PoiseMeterRendererMixin"
   ],
   "injectors": {
     "defaultRequire": 1
