@@ -11,10 +11,6 @@
       },
       {
         "namespace": ".*",
-        "path": "advancement/.*"
-      },
-      {
-        "namespace": ".*",
         "path": "loot_table/.*"
       }
     ]

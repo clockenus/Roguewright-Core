@@ -4,7 +4,9 @@
   "package": "com.clocken.roguewright.mixin",
   "compatibilityLevel": "JAVA_21",
   "mixins": [
-    "PlayerEntityMixin"
+    "LivingEntityMixin",
+    "PlayerEntityMixin",
+    "PotionItemMixin"
   ],
   "injectors": {
     "defaultRequire": 1
