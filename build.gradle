@@ -39,10 +39,7 @@ repositories {
         url = 'https://maven.ladysnake.org/releases'
     }
     maven { url 'https://repo.sleeping.town/' }
-//    maven { url = "https://maven.bawnorton.com/releases" }
-//
-//    // Mirror
-//    maven { url = "https://maven.enjarai.dev/mirrors" }
+    maven { url 'https://maven.quiltmc.org/repository/release' }
 }
 
 dependencies {
@@ -51,30 +48,43 @@ dependencies {
     modImplementation "net.fabricmc:fabric-loader:${project.loader_version}"
     modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
 
-//    include(implementation(annotationProcessor("com.github.bawnorton.mixinsquared:mixinsquared-fabric:0.3.7-beta.3")))
+    modImplementation "maven.modrinth:starter-kit:${project.starter_kit_version}"
+    modImplementation "maven.modrinth:collective:${project.collective_version}"
 
-    modImplementation "maven.modrinth:starter-kit:1.21.1-8.1-fabric+forge+neo"
-    modImplementation "maven.modrinth:collective:1.21.1-8.39-fabric+forge+neo"
+    modImplementation "maven.modrinth:melancholic_hunger:${project.melancholic_hunger_version}"
+    modImplementation "maven.modrinth:yacl:${project.yacl_version}"
 
-    modImplementation "maven.modrinth:melancholic_hunger:Sv3098ml"
-    modImplementation "maven.modrinth:yacl:3.8.2+1.21.1-fabric"
+    modImplementation "maven.modrinth:stagger:${project.stagger_version}"
+    modImplementation "org.ladysnake.cardinal-components-api:cardinal-components-base:${project.cc_api_version}"
+    modImplementation "org.ladysnake.cardinal-components-api:cardinal-components-entity:${project.cc_api_version}"
+    modImplementation "org.ladysnake.cardinal-components-api:cardinal-components-scoreboard:${project.cc_api_version}"
+    implementation include("folk.sisby:kaleido-config:${project.kaleido_config_version}")
+    modImplementation "org.quiltmc.parsers:gson:${project.gson_version}"
+    modImplementation "org.quiltmc.parsers:json:${project.json_version}"
 
-//    modImplementation "maven.modrinth:experience-obliterator:1.0.1-1.21.1-fabric"
-
-    modImplementation "maven.modrinth:stagger:0.5.0"
-    modImplementation "org.ladysnake.cardinal-components-api:cardinal-components-base:6.1.2"
-    modImplementation "org.ladysnake.cardinal-components-api:cardinal-components-entity:6.1.2"
-    modImplementation "org.ladysnake.cardinal-components-api:cardinal-components-scoreboard:6.1.2"
-    implementation include("folk.sisby:kaleido-config:0.3.3+1.3.2")
-
-//    modImplementation "maven.modrinth:minecells:2.0.3"
-//    modImplementation "maven.modrinth:owo-lib:0.13.0-alpha.15+1.21"
+    modImplementation "maven.modrinth:mclegoman-perspective:${project.perspective_version}"
+    modImplementation "maven.modrinth:luminance:${project.luminance_version}"
 }
 
 processResources {
     inputs.property "version", project.version
     inputs.property "minecraft_version", project.minecraft_version
     inputs.property "loader_version", project.loader_version
+
+    inputs.property "starter_kit_version", project.starter_kit_version
+    inputs.property "collective_version", project.collective_version
+
+    inputs.property "melancholic_hunger_version", project.melancholic_hunger_version
+    inputs.property "yacl_version", project.yacl_version
+
+    inputs.property "stagger_version", project.stagger_version
+    inputs.property "cc_api_version", project.cc_api_version
+    inputs.property "kaleido_config_version", project.kaleido_config_version
+    inputs.property "gson_version", project.gson_version
+    inputs.property "json_version", project.json_version
+
+    inputs.property "perspective_version", project.perspective_version
+    inputs.property "luminance_version", project.luminance_version
     filteringCharset "UTF-8"
 
     filesMatching("fabric.mod.json") {
@@ -86,10 +96,6 @@ processResources {
 
 def targetJavaVersion = 21
 tasks.withType(JavaCompile).configureEach {
-    // ensure that the encoding is set to UTF-8, no matter what the system default is
-    // this fixes some edge cases with special characters not displaying correctly
-    // see http://yodaconditions.net/blog/fix-for-java-file-encoding-problems-with-gradle.html
-    // If Javadoc is generated, this must be specified in that task too.
     it.options.encoding = "UTF-8"
     if (targetJavaVersion >= 10 || JavaVersion.current().isJava10Compatible()) {
         it.options.release.set(targetJavaVersion)
@@ -101,9 +107,6 @@ java {
     if (JavaVersion.current() < javaVersion) {
         toolchain.languageVersion = JavaLanguageVersion.of(targetJavaVersion)
     }
-    // Loom will automatically attach sourcesJar to a RemapSourcesJar task and to the "build" task
-    // if it is present.
-    // If you remove this line, sources will not be generated.
     withSourcesJar()
 }
 
@@ -113,7 +116,6 @@ jar {
     }
 }
 
-// configure the maven publication
 publishing {
     publications {
         create("mavenJava", MavenPublication) {
@@ -121,12 +123,6 @@ publishing {
             from components.java
         }
     }
-
-    // See https://docs.gradle.org/current/userguide/publishing_maven.html for information on how to set up publishing.
     repositories {
-        // Add repositories to publish to here.
-        // Notice: This block does NOT have the same function as the block in the top level.
-        // The repositories here will be used for publishing your artifact, not for
-        // retrieving dependencies.
     }
 }
